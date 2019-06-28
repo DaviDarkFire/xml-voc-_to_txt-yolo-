@@ -1,6 +1,14 @@
 import os
 import sys
 from xml.dom import minidom
+from decimal import Decimal as dec
+
+NUMBER_OF_DIGITS_TO_TRUNCATE = 6
+
+def truncate(num_list):
+    for i, val in enumerate(num_list):
+        num_list[i] = float(round(dec(val),NUMBER_OF_DIGITS_TO_TRUNCATE))
+
 
 def generate_classes_file(classes_list,path_of_file_creation):
     txt_file = open(path_of_file_creation+"classes.txt","w+")
@@ -106,13 +114,17 @@ def create_txt_file(ob_class,x,y,width,height,path_of_file_creation,file_name):
     #open file on writing mode, write values received and close the file
     txt_file = open(path_of_file_creation+file_name,"w+")
 
+    truncate(x)
+    truncate(y)
+    truncate(width)
+    truncate(height)
+
     x = list(map(str,x))
     y = list(map(str,y))
     width = list(map(str,width))
     height = list(map(str,height))
     ob_class = list(map(str,ob_class))
 
-    print(ob_class)
 
     for i in range(len(ob_class)):
         # print("imagem:"+str(i))
